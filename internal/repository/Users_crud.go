@@ -3,13 +3,22 @@ package repository
 import (
 	"database/sql"
 	"fmt"
+	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
 func Add_user(name string, password string) {
-	connectionStr := "host=localhost user=%s password=%s dbname=%s port=5433 sslmode=disable"
-	connectionStr = fmt.Sprintf(connectionStr, "User", "Maputa129", "PC_Shop_DB")
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	connectionStr := "host=%s port=%s user=%s password=%s dbname=%s  sslmode=disable"
+	connectionStr = fmt.Sprintf(connectionStr, os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_PORT"),
+		os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"))
 	db, err := sql.Open("postgres", connectionStr)
 	if err != nil {
 		panic(err)
@@ -24,8 +33,9 @@ func Add_user(name string, password string) {
 }
 
 func Delete_user(id int) {
-	connectionStr := "host=localhost user=%s password=%s dbname=%s port=5433 sslmode=disable"
-	connectionStr = fmt.Sprintf(connectionStr, "User", "Maputa129", "PC_Shop_DB")
+	connectionStr := "host=%s port=%s user=%s password=%s dbname=%s  sslmode=disable"
+	connectionStr = fmt.Sprintf(connectionStr, os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_PORT"),
+		os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"))
 	db, err := sql.Open("postgres", connectionStr)
 	if err != nil {
 		panic(err)
@@ -40,8 +50,9 @@ func Delete_user(id int) {
 }
 
 func Update_user(name string, password string, id int) {
-	connectionStr := "host=localhost user=%s password=%s dbname=%s port=5433 sslmode=disable"
-	connectionStr = fmt.Sprintf(connectionStr, "User", "Maputa129", "PC_Shop_DB")
+	connectionStr := "host=%s port=%s user=%s password=%s dbname=%s  sslmode=disable"
+	connectionStr = fmt.Sprintf(connectionStr, os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_PORT"),
+		os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"))
 	db, err := sql.Open("postgres", connectionStr)
 	if err != nil {
 		panic(err)
