@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"PC_Shop/internal/repository"
+)
 
 func main() {
-	fmt.Printf("hello world")
+	repository.Add_user("user1", "password1")
 }
