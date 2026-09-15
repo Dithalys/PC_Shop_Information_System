@@ -38,3 +38,19 @@ func Delete_user(id int) {
 	}
 	fmt.Print(result.RowsAffected())
 }
+
+func Update_user(name string, password string, id int) {
+	connectionStr := "host=localhost user=%s password=%s dbname=%s port=5433 sslmode=disable"
+	connectionStr = fmt.Sprintf(connectionStr, "User", "Maputa129", "PC_Shop_DB")
+	db, err := sql.Open("postgres", connectionStr)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	result, err := db.Exec("UPDATE Users set username = $1, password_hash = $2 WHERE id = $3", name, password, id)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Print(result.RowsAffected())
+}
