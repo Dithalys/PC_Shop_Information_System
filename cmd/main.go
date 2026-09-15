@@ -5,7 +5,9 @@ import (
 )
 
 func main() {
-	repository.Add_user("user6", "password6")
-	//repository.Delete_user(6)
-	//repository.Update_user("user2", "password2", 7)
+	//epository.Add_user("user7", "password7")
+	repository.Select_all_users()
+	repository.Delete_user(9)
+	repository.Update_user("user2", "password2", 7)
+	repository.Select_all_users()
 }

@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"PC_Shop/internal/database"
 	"database/sql"
 	"fmt"
 	"log"
@@ -74,4 +75,40 @@ func Update_user(name string, password string, id int) {
 		panic(err)
 	}
 	fmt.Print(result.RowsAffected())
+}
+
+func Select_all_users() {
+	err := godotenv.Load()
+	if err != nil {
+		panic(err)
+	}
+
+	connectionStr := "host=%s port=%s user=%s password=%s dbname=%s  sslmode=disable"
+	connectionStr = fmt.Sprintf(connectionStr, os.Getenv("POSTGRES_HOST"), os.Getenv("POSTGRES_PORT"),
+		os.Getenv("POSTGRES_USER"), os.Getenv("POSTGRES_PASSWORD"), os.Getenv("POSTGRES_DB"))
+	db, err := sql.Open("postgres", connectionStr)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query("SELECT * FROM Users")
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+	users := []database.User{}
+
+	for rows.Next() {
+		user := database.User{}
+		err := rows.Scan(&user.Id, &user.Username, &user.Password_hash, &user.Balance)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		users = append(users, user)
+	}
+	for _, u := range users {
+		fmt.Println(u.Id, u.Username, u.Password_hash, u.Balance)
+	}
 }
