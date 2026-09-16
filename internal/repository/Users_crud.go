@@ -10,13 +10,13 @@ import (
 )
 
 func Add_user(db *sql.DB, name string, password string) {
-	var userID int64
+	var user_id int64
 	query := "INSERT INTO Users(username, password_hash) VALUES($1, $2) RETURNING id"
-	err := db.QueryRow(query, name, password).Scan(&userID)
+	err := db.QueryRow(query, name, password).Scan(&user_id)
 	if err != nil {
 		log.Println("Ошибка при добавлении поьлзователя:", err)
 	} else {
-		log.Printf("Добавлен пользователь [%d]\n", userID)
+		log.Printf("Добавлен пользователь [%d]\n", user_id)
 	}
 
 }
