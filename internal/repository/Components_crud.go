@@ -14,7 +14,7 @@ func Add_component(db *sql.DB, title string, description string, price float32, 
 	query := "INSERT INTO Components(title, overview, price, quantity, User_id) VALUES($1, $2, $3, $4, $5) RETURNING id"
 	err := db.QueryRow(query, title, description, price, quaintity, user_id).Scan(&product_id)
 	if err != nil {
-		log.Println("Ошибка при добавлении компонена:", err)
+		log.Println("Ошибка при добавлении компонента:", err)
 	} else {
 		log.Printf("Добавлен компонент [%d]\n", product_id)
 	}

@@ -23,8 +23,9 @@ CREATE TABLE IF NOT EXISTS Computers(
 );
 
 CREATE TABLE IF NOT EXISTS Computer_Components(
+    id SERIAL PRIMARY KEY,
     Computer_id INT REFERENCES Computers(id),
     Component_id INT REFERENCES Components(id),
-    quantity INT DEFAULT 1,
-    PRIMARY KEY(Computer_id, Component_id)
+    User_id INT REFERENCES Users(id),
+    quantity INT DEFAULT 1
 );
