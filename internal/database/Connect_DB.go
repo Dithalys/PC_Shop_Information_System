@@ -23,5 +23,6 @@ func Connect() *sql.DB {
 	if err != nil {
 		panic(err)
 	}
+	log.Println("База данных подключена.")
 	return db
 }

@@ -1,8 +1,19 @@
+CREATE TABLE IF NOT EXISTS Roles(
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(10)
+);
+
+INSERT INTO Roles(title) VALUES('Owner');
+INSERT INTO Roles(title) VALUES('Admin');
+INSERT INTO Roles(title) VALUES('Seller');
+INSERT INTO Roles(title) VALUES('Buyer');
+
 CREATE TABLE IF NOT EXISTS Users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    balance NUMERIC(10,2) DEFAULT 0
+    balance NUMERIC(10,2) DEFAULT 0,
+    Role_id INT REFERENCES Roles(id)
 );
 
 CREATE TABLE IF NOT EXISTS Components(
